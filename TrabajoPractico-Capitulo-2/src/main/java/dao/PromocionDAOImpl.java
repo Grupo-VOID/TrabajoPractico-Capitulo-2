@@ -87,19 +87,20 @@ public class PromocionDAOImpl implements PromocionDAO {
 
 		String[] atr = atraccionesIncluidas.split(" ");
 		
-		Atraccion [] atracciones = null;
+		Atraccion [] atracciones = new Atraccion [2];
 		int contador = 0;
 
 		for(String i: atr) {
 			if(tipoPromocion==3) {
 				if(Integer.parseInt(i)!=parametro) {
 					atracciones[contador] = atraccionesDAO.buscarPorId(Integer.parseInt(i));
+					contador++;
 				}
 			}
 			else {
 				atracciones[contador] = atraccionesDAO.buscarPorId(Integer.parseInt(i));
+				contador++;
 			}
-			contador++;
 		}
 		switch (tipoPromocion) {
 		case 1:

@@ -26,8 +26,8 @@ public class ParqueAtracciones {
 	}
 
 	public void cargarCatalogo() {
-		this.catalogo.addAll(this.promociones);
-		this.catalogo.addAll(this.atracciones);
+		//this.catalogo.addAll(this.promociones);
+		//this.catalogo.addAll(this.atracciones);
 	}
 
 	public Adquirible obtenerAtraccionPorNombre(String nombre) {
