@@ -1,11 +1,20 @@
 package model;
 
-public enum TipoAtraccion {
+public class TipoAtraccion {
 
-	DRAMA, COMEDIA, MUSICAL, POLICIAL, ARGENTINA;
+	String tematica;
+	
+	//DRAMA, COMEDIA, MUSICAL, POLICIAL, ARGENTINA;
+//FALTA CREAR LOS TIPO DE ATRACCION
+	
+	public TipoAtraccion(String tematica) {
+		super();
+		this.tematica = tematica;
+	}
 
 	@Override
 	public String toString() {
-		return this.name();
+		return "TipoAtraccion [tematica=" + tematica + "]";
 	}
+
 }
