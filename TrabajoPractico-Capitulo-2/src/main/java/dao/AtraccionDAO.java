@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.Atraccion;
 
-public interface AtraccionesDAO extends GenericDAO<Atraccion> {
+public interface AtraccionDAO extends GenericDAO<Atraccion> {
 	
 	public List<Atraccion> findAll();
 

@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
-import dao.AtraccionesDAO;
+import dao.AtraccionDAO;
 import dao.DAOFactory;
 import dao.MissingDataException;
-import dao.UserDAO;
+import dao.UsuarioDAO;
 import jdbc.ConnectionProvider;
 
 public class App {
@@ -28,7 +28,7 @@ public class App {
 //		}
 //	}
 	public static void main(String[] args) throws SQLException {
-		AtraccionesDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
+		AtraccionDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
 		System.out.println(atraccionesDAO.findAll());
 }
 //	

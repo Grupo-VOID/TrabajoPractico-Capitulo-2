@@ -2,16 +2,16 @@ package dao;
 
 public class DAOFactory {
 
-	public static UserDAO getUserDAO() {
-		return new UserDAOImpl();
+	public static UsuarioDAO getUserDAO() {
+		return new UsuarioDAOImpl();
 	}
 
-	public static AtraccionesDAO getAtraccionesDAO() {
-		return new AtraccionesDAOImpl();
+	public static AtraccionDAO getAtraccionesDAO() {
+		return new AtraccionDAOImpl();
 	}
 
-	public static PromocionesDAO getPromocionesDAO() {
-		return new PromocionesDAOImpl();
+	public static PromocionDAO getPromocionesDAO() {
+		return new PromocionDAOImpl();
 	}
 
 }
