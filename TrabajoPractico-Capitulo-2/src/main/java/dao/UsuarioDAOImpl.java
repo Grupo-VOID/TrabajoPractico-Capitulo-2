@@ -1,18 +1,14 @@
 package dao;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
-
 import jdbc.ConnectionProvider;
 import model.Usuario;
-import paquete.TipoAtraccion;
+
 
 public class UsuarioDAOImpl implements UsuarioDAO {
 
