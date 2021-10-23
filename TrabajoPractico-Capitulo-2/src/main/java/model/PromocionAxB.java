@@ -1,9 +1,5 @@
 package model;
 
-import model.Atraccion;
-import model.Promocion;
-import model.TipoAtraccion;
-
 public class PromocionAxB extends Promocion {
 
 	private Atraccion atraccionGratis;
@@ -49,11 +45,11 @@ public class PromocionAxB extends Promocion {
 
 	@Override
 	public String toString() {
-		return (this.getNombre() +": Si se compra la atracción " + this.atraccionUno.getNombre() 
-				+ " y la atracción " + this.atraccionDos.getNombre()
-				+ ", se lleva la atracción " + this.atraccionGratis.getNombre() + " gratis." 
-				+ "\n Temática: " + this.getTematica()
+		return (this.getNombre() +": Si se compra la atracciï¿½n " + this.atraccionUno.getNombre() 
+				+ " y la atracciï¿½n " + this.atraccionDos.getNombre()
+				+ ", se lleva la atracciï¿½n " + this.atraccionGratis.getNombre() + " gratis." 
+				+ "\n Temï¿½tica: " + this.getTematica()
 				+"\n Costo Total= $" + this.getCosto()
-				+"\n Duración Total= " + this.getTiempo() + " horas");
+				+"\n Duraciï¿½n Total= " + this.getTiempo() + " horas");
 	}
 }

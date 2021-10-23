@@ -3,7 +3,7 @@ package model;
 import java.util.Comparator;
 
 public class Sugerencia implements Comparator<Adquirible> {
-	private TipoAtraccion atraccionFavorita;
+	private String atraccionFavorita;
 
 	public Sugerencia(Usuario usuarioRef) {
 		atraccionFavorita = usuarioRef.getTematica();
