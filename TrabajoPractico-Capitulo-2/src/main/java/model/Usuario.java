@@ -27,7 +27,7 @@ public class Usuario {
 		return NOMBRE;
 	}
 
-	public TipoAtraccion getTematica() {
+	public String getTematica() {
 		return TEMATICA_FAVORITA;
 	}
 

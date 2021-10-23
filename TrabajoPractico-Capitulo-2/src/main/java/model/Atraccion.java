@@ -2,7 +2,6 @@ package model;
 
 import model.Adquirible;
 import model.Atraccion;
-import model.TipoAtraccion;
 
 public class Atraccion implements Adquirible {
 
