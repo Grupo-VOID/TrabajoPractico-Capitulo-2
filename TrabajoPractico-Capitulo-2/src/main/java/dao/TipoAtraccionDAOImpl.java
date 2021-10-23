@@ -4,12 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import jdbc.ConnectionProvider;
 
-public class TipoAtraccionDAOImpl {
+public class TipoAtraccionDAOImpl implements TipoAtraccionDAO{
 
-	public static String buscarPorId(int id) {
+	public String buscarPorId(int id) {
 		try {
 			String sql = "SELECT nombre_tematica FROM tematica_atraccion WHERE id_tematica = ?";
 			Connection conn = ConnectionProvider.getConnection();
@@ -24,5 +25,9 @@ public class TipoAtraccionDAOImpl {
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
+	}
+
+	public List<String> findAll() {
+		return null;
 	}
 }

@@ -85,8 +85,10 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	}
 
 	private Atraccion toAtraccion(ResultSet resultados) throws SQLException {
+		TipoAtraccionDAO tipoAtraccionDAO = DAOFactory.getTipoAtraccionDAO()
+		
 		String nombre = resultados.getString("nombre_atraccion");
-		String tematica = TipoAtraccionDAOImpl.buscarPorId(resultados.getInt("id_tematica"));
+		String tematica = tipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica"));
 		double monedas = resultados.getInt("costo");
 		double tiempo = resultados.getInt("duracion");
 		int cupo = resultados.getInt("cupo_actual");

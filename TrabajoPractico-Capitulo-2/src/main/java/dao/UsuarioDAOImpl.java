@@ -104,8 +104,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 	}
 
 	private Usuario toUsuario(ResultSet resultados) throws SQLException {
+		TipoAtraccionDAO tipoAtraccionDAO = DAOFactory.getTipoAtraccionDAO();
+		
 		String nombre = resultados.getString("nombre_usuario");
-		String tematica = TipoAtraccionDAOImpl.buscarPorId(resultados.getInt("id_tematica_preferida"));
+		String tematica = tipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica_preferida"));
 		int dinero = resultados.getInt("dinero_disponible");
 		double tiempo = resultados.getInt("tiempo_disponible");
 		Usuario usuario = new Usuario(nombre, tematica, dinero, tiempo);
