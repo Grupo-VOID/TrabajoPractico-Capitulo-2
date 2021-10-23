@@ -11,7 +11,7 @@ import jdbc.ConnectionProvider;
 import model.Itinerario;
 
 
-public class ItinerarioDAO {
+public class ItinerarioDAOImpl {
 	public int insertAtraccion(Itinerario itinerario) throws SQLException {
 		String sql = "INSERT INTO itinerarios (id_usuario, id_atraccion_comprada) VALUES (?, ?)";
 		Connection conn = ConnectionProvider.getConnection();
