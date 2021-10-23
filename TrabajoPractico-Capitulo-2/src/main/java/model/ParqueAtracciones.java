@@ -1,21 +1,21 @@
 package model;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class ParqueAtracciones {
 
-	private LinkedList<Adquirible> atracciones, promociones, catalogo = new LinkedList<Adquirible>();
-	private LinkedList<Usuario> usuarios;
+	private List<Adquirible> atracciones, promociones, catalogo;
+	private List<Usuario> usuarios;
 
-	public void agregarAtracciones(LinkedList<Adquirible> atracciones) {
+	public void agregarAtracciones(List<Adquirible> atracciones) {
 		this.atracciones = atracciones;
 	}
 
-	public void agregarPromociones(LinkedList<Adquirible> promociones) {
+	public void agregarPromociones(List<Adquirible> promociones) {
 		this.promociones = promociones;
 	}
 
-	public void agregarUsuarios(LinkedList<Usuario> usuarios) {
+	public void agregarUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 
@@ -39,19 +39,19 @@ public class ParqueAtracciones {
 		return null;
 	}
 
-	public LinkedList<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
-	public LinkedList<Adquirible> getAtracciones() {
+	public List<Adquirible> getAtracciones() {
 		return this.atracciones;
 	}
 
-	public LinkedList<Adquirible> getPromociones() {
+	public List<Adquirible> getPromociones() {
 		return this.promociones;
 	}
 
-	public LinkedList<Adquirible> getCatalogo() {
+	public List<Adquirible> getCatalogo() {
 		return catalogo;
 	}
 }
