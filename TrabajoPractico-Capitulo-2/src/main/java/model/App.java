@@ -12,7 +12,7 @@ public class App {
 
 	public static void main(String[] args) throws SQLException {
 		AtraccionDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
-		UsuarioDAO usuarioDAO = DAOFactory.getUserDAO();
+		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		PromocionDAO promocionesDAO = DAOFactory.getPromocionesDAO();
 
 		ParqueAtracciones parque = new ParqueAtracciones();
