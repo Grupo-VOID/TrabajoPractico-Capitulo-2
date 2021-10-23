@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class ConnectionProvider {
 
-	private static String url = "jdbc:sqlite:./bd/parque_atracciones.db";
+	private static String url = "jdbc:sqlite:./bd/BaseDeDatosVOID.db";
 	private static Connection connection;
 
 	public static Connection getConnection() throws SQLException {
