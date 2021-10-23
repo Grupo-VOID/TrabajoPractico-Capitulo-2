@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
+import model.Itinerario;
 
 
 public class ItinerarioDAO {

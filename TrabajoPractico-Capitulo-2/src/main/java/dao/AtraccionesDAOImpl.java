@@ -22,13 +22,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 
 			List<Atraccion> listaAtracciones = new LinkedList<Atraccion>();
 			while (resultados.next()) {
-				String nombre = resultados.getString("nombre_atraccion");
-				String tematica = TipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica"));
-				double monedas = resultados.getInt("costo");
-				double tiempo = resultados.getInt("duracion");
-				int cupo = resultados.getInt("cupo_actual");
-				Atraccion atraccion = new Atraccion(nombre, tematica, monedas, tiempo, cupo);
-				listaAtracciones.add(atraccion);
+				listaAtracciones.add(toAtraccion(resultados));
 			}
 			return listaAtracciones;
 
@@ -80,7 +74,14 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	}
 	
 	private Atraccion toAtraccion(ResultSet resultados) throws SQLException {
-		return new Atraccion(resultados.getString("nombre_atraccion"), TipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica")), 
-				resultados.getInt("costo"), resultados.getInt("duracion"), resultados.getInt("cupo_actual"));
+		String nombre = resultados.getString("nombre_atraccion");
+		String tematica = TipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica"));
+		double monedas = resultados.getInt("costo");
+		double tiempo = resultados.getInt("duracion");
+		int cupo = resultados.getInt("cupo_actual");
+		
+		Atraccion atraccion = new Atraccion(nombre, tematica, monedas, tiempo, cupo);
+		
+		return atraccion;
 	}
 }
