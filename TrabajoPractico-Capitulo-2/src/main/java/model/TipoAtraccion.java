@@ -8,7 +8,6 @@ public class TipoAtraccion {
 //FALTA CREAR LOS TIPO DE ATRACCION
 	
 	public TipoAtraccion(String tematica) {
-		super();
 		this.tematica = tematica;
 	}
 
