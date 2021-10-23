@@ -39,41 +39,48 @@ public class PromocionesDAOImpl implements PromocionesDAO {
 		}
 	}
 
-	public Promocion buscarPorNombre(String nombre) throws SQLException {
-		String sql = "SELECT * FROM promociones WHERE nombre_promocion = ?";
-		Connection conn = ConnectionProvider.getConnection();
-		PreparedStatement statement = conn.prepareStatement(sql);
-		statement.setString(1, nombre);
-		ResultSet resultados = statement.executeQuery();
+	public Promocion buscarPorNombre(String nombre) {
+		try {
+			String sql = "SELECT * FROM promociones WHERE nombre_promocion = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, nombre);
+			ResultSet resultados = statement.executeQuery();
 
-		Promocion promocion = null;
+			Promocion promocion = null;
 
-		if (resultados.next()) {
-			promocion = toPromocion(resultados);
+			if (resultados.next()) {
+				promocion = toPromocion(resultados);
+			}
+			return promocion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
 		}
-		return promocion;
 	}
 
-	public Promocion buscarPorId(int id) throws SQLException {
-		String sql = "SELECT * FROM promociones WHERE id_promocion = ?";
-		Connection conn = ConnectionProvider.getConnection();
-		PreparedStatement statement = conn.prepareStatement(sql);
-		statement.setInt(1, id);
-		ResultSet resultados = statement.executeQuery();
+	public Promocion buscarPorId(int id) {
+		try {
+			String sql = "SELECT * FROM promociones WHERE id_promocion = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet resultados = statement.executeQuery();
 
-		Promocion promocion = null;
+			Promocion promocion = null;
 
-		if (resultados.next()) {
-			promocion = toPromocion(resultados);
+			if (resultados.next()) {
+				promocion = toPromocion(resultados);
+			}
+			return promocion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
 		}
-		return promocion;
 	}
 
 	private Promocion toPromocion(ResultSet resultados) throws SQLException {
-		
 		Promocion promocion = null;
 		AtraccionesDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
-		
+
 		int tipoPromocion = resultados.getInt("id_tipo_promocion");
 		String tematica = resultados.getString("nombre_promocion");
 		String atraccionesIncluidas = resultados.getString("lista_atracciones");
@@ -94,7 +101,8 @@ public class PromocionesDAOImpl implements PromocionesDAO {
 			break;
 		case 3:
 			Atraccion atraccionGratis = atraccionesDAO.buscarPorId(parametro);
-			promocion = new PromocionAxB(tematica, atraccionesDAO.buscarPorId(atracciones[1]), atraccionesDAO.buscarPorId(atracciones[2]), atraccionGratis);
+			promocion = new PromocionAxB(tematica, atraccionesDAO.buscarPorId(atracciones[1]),
+					atraccionesDAO.buscarPorId(atracciones[2]), atraccionGratis);
 			break;
 		}
 		return promocion;
