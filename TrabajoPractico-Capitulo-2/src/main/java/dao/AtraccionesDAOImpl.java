@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
-import main.java.model.Promocion;
 import model.Atraccion;
 
 public class AtraccionesDAOImpl implements AtraccionesDAO {
