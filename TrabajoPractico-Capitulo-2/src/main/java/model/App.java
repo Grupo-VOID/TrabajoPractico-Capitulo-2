@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
@@ -10,7 +11,7 @@ import dao.UsuarioDAO;
 
 public class App {
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException {
 		AtraccionDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		PromocionDAO promocionesDAO = DAOFactory.getPromocionesDAO();
@@ -19,6 +20,10 @@ public class App {
 		parque.agregarUsuarios(usuarioDAO.findAll());
 		parque.agregarAtracciones(new LinkedList<Adquirible>(atraccionesDAO.findAll()));
 		parque.agregarPromociones(new LinkedList<Adquirible>(promocionesDAO.findAll()));
+		
 		parque.cargarCatalogo();
+		
+		UI.eleccionDeMenu(parque); // Metodo para elegir modo de compra
 	}
+
 }

@@ -1,10 +1,12 @@
 package model;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class ParqueAtracciones {
 
-	private List<Adquirible> atracciones, promociones, catalogo;
+	private List<Adquirible> atracciones, promociones;
+	private LinkedList<Adquirible> catalogo = new LinkedList<Adquirible>();
 	private List<Usuario> usuarios;
 
 	public void agregarAtracciones(List<Adquirible> atracciones) {
@@ -26,8 +28,8 @@ public class ParqueAtracciones {
 	}
 
 	public void cargarCatalogo() {
-		//this.catalogo.addAll(this.promociones);
-		//this.catalogo.addAll(this.atracciones);
+		this.catalogo.addAll(this.promociones);
+		this.catalogo.addAll(this.atracciones);
 	}
 
 	public Adquirible obtenerAtraccionPorNombre(String nombre) {
