@@ -11,7 +11,7 @@ public class TipoPromocionDAOImpl {
 
 	public static String buscarPorId(int id) {
 		try {
-			String sql = "SELECT tipo_promocion FROM tipo_promociones WHERE id_tipo_promocion = ?";
+			String sql = "SELECT * FROM tipo_promociones WHERE id_tipo_promocion = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);

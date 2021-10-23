@@ -67,7 +67,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 	public Atraccion buscarPorId(int id) throws SQLException {
 		try {
-			String sql = "SELECT nombre_atraccion FROM atracciones WHERE id_atraccion = ?";
+			String sql = "SELECT * FROM atracciones WHERE id_atraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);

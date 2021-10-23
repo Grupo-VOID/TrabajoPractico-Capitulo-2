@@ -12,7 +12,7 @@ public class TipoAtraccionDAOImpl implements TipoAtraccionDAO{
 
 	public String buscarPorId(int id) {
 		try {
-			String sql = "SELECT nombre_tematica FROM tematicas_atracciones WHERE id_tematica = ?";
+			String sql = "SELECT * FROM tematicas_atracciones WHERE id_tematica = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);

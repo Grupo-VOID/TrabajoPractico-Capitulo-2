@@ -12,7 +12,7 @@ import model.Itinerario;
 
 
 public class ItinerarioDAOImpl {
-	public int insertAtraccion(Itinerario itinerario) throws SQLException {
+	/*public int insertAtraccion(Itinerario itinerario) throws SQLException {
 		String sql = "INSERT INTO itinerarios (id_usuario, id_atraccion_comprada) VALUES (?, ?)";
 		Connection conn = ConnectionProvider.getConnection();
 
@@ -34,7 +34,7 @@ public class ItinerarioDAOImpl {
 		int rows = statement.executeUpdate();
 
 		return rows;
-	}
+	}*/
 	
 	public List<Itinerario> buscarPorIdUsuario(int id) throws SQLException {
 		String sql = "SELECT * FROM itinerario WHERE id_usuario = ?";
@@ -45,7 +45,7 @@ public class ItinerarioDAOImpl {
 		
 		List<Itinerario> itinerario = new LinkedList<Itinerario>();
 		while (resultados.next()) {
-			itinerario.add(toItinerario(resultados));
+			//itinerario.add(toItinerario(resultados));
 		}
 		return itinerario;
 	}
@@ -70,13 +70,13 @@ public class ItinerarioDAOImpl {
 
 		List<Itinerario> itinerario = new LinkedList<Itinerario>();
 		while (resultados.next()) {
-			itinerario.add(toItinerario(resultados));
+			//itinerario.add(toItinerario(resultados));
 		}
 		return itinerario;
 	}
 
-	private Itinerario toItinerario(ResultSet resultados) throws SQLException {
+	/*private Itinerario toItinerario(ResultSet resultados) throws SQLException {
 		return new Itinerario(resultados.getInt("id_usuario"), resultados.getInt("id_atraccion_comprada"),
 				resultados.getInt("id_promocion_comprada"));
-	}
+	}*/
 }

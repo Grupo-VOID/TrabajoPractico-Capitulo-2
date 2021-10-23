@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 
 	public List<Promocion> findAll() {
 		try {
-			String sql = "SELECT promociones.*, group_concat(ap.id_atraccion) AS lista_atracciones\r\n"
+			String sql = "SELECT promociones.*, group_concat(ap.id_atraccion,' ') AS lista_atracciones\r\n"
 					+ "FROM promociones\r\n"
 					+ "JOIN atracciones_promociones ap ON ap.id_promocion = promociones.id_promocion\r\n"
 					+ "GROUP BY promociones.id_promocion";
@@ -87,22 +86,31 @@ public class PromocionDAOImpl implements PromocionDAO {
 		int parametro = resultados.getInt("parametro");
 
 		String[] atr = atraccionesIncluidas.split(" ");
-		Integer[] atracciones = Arrays.copyOf(atr, atr.length, Integer[].class);
+		
+		Atraccion [] atracciones = null;
+		int contador = 0;
 
-		Atraccion atraccion1 = atraccionesDAO.buscarPorId(atracciones[0]);
-		Atraccion atraccion2 = atraccionesDAO.buscarPorId(atracciones[1]);
-
+		for(String i: atr) {
+			if(tipoPromocion==3) {
+				if(Integer.parseInt(i)!=parametro) {
+					atracciones[contador] = atraccionesDAO.buscarPorId(Integer.parseInt(i));
+				}
+			}
+			else {
+				atracciones[contador] = atraccionesDAO.buscarPorId(Integer.parseInt(i));
+			}
+			contador++;
+		}
 		switch (tipoPromocion) {
 		case 1:
-			promocion = new PromocionPorcentual(tematica, atraccion1, atraccion2, parametro);
+			promocion = new PromocionPorcentual(tematica, atracciones [0],atracciones[1], parametro);
 			break;
 		case 2:
-			promocion = new PromocionAbsoluta(tematica, atraccion1, atraccion2, parametro);
+			promocion = new PromocionAbsoluta(tematica, atracciones [0],atracciones[1], parametro);
 			break;
 		case 3:
 			Atraccion atraccionGratis = atraccionesDAO.buscarPorId(parametro);
-			promocion = new PromocionAxB(tematica, atraccionesDAO.buscarPorId(atracciones[1]),
-					atraccionesDAO.buscarPorId(atracciones[2]), atraccionGratis);
+			promocion = new PromocionAxB(tematica, atracciones [0],atracciones[1], atraccionGratis);
 			break;
 		}
 		return promocion;
