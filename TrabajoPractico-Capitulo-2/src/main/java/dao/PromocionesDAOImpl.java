@@ -4,10 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
+import model.Atraccion;
 import model.Promocion;
 import model.PromocionAbsoluta;
 import model.PromocionAxB;
@@ -25,31 +27,10 @@ public class PromocionesDAOImpl implements PromocionesDAO {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
 
-			Promocion promocion;
-
 			List<Promocion> listaPromociones = new LinkedList<Promocion>();
 
 			while (resultados.next()) {
-				int tipoPromocion = resultados.getInt("id_tipo_promocion");
-				String tematica = resultados.getString("nombre_promocion");
-				String atraccionesIncluidas = resultados.getString("lista_atracciones");
-				int parametro = resultados.getInt("parametro");
-
-				String[] atr = atraccionesIncluidas.split(" ");
-
-				switch (tipoPromocion) {
-				case 1:
-					promocion = new PromocionPorcentual(tematica, atraccion1, atraccion2, parametro);
-					break;
-				case 2:
-					promocion = new PromocionAbsoluta(tematica, atraccion1, atraccion2, parametro);
-					break;
-				case 3:
-					promocion = new PromocionAxB(tematica, atraccion1, atraccion2, parametro);
-					break;
-				}
-				listaPromociones.add(promocion);
-
+				listaPromociones.add(toPromocion(resultados));
 			}
 			return listaPromociones;
 
@@ -88,20 +69,34 @@ public class PromocionesDAOImpl implements PromocionesDAO {
 		return promocion;
 	}
 
-	public int countAll() throws SQLException {
-		String sql = "SELECT count(*) AS 'total' FROM promociones";
-		Connection conn = ConnectionProvider.getConnection();
-		PreparedStatement statement = conn.prepareStatement(sql);
-		ResultSet resultados = statement.executeQuery();
-
-		resultados.next();
-		int total = resultados.getInt("total");
-
-		return total;
-	}
-
 	private Promocion toPromocion(ResultSet resultados) throws SQLException {
-		return new Promocion(resultados.getInt("id_promocion"), resultados.getString("nombre_promocion"),
-				resultados.getInt("id_tipo_promocion"), resultados.getInt("parametro"));
+		
+		Promocion promocion = null;
+		AtraccionesDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
+		
+		int tipoPromocion = resultados.getInt("id_tipo_promocion");
+		String tematica = resultados.getString("nombre_promocion");
+		String atraccionesIncluidas = resultados.getString("lista_atracciones");
+		int parametro = resultados.getInt("parametro");
+
+		String[] atr = atraccionesIncluidas.split(" ");
+		Integer[] atracciones = Arrays.copyOf(atr, atr.length, Integer[].class);
+
+		Atraccion atraccion1 = atraccionesDAO.buscarPorId(atracciones[0]);
+		Atraccion atraccion2 = atraccionesDAO.buscarPorId(atracciones[1]);
+
+		switch (tipoPromocion) {
+		case 1:
+			promocion = new PromocionPorcentual(tematica, atraccion1, atraccion2, parametro);
+			break;
+		case 2:
+			promocion = new PromocionAbsoluta(tematica, atraccion1, atraccion2, parametro);
+			break;
+		case 3:
+			Atraccion atraccionGratis = atraccionesDAO.buscarPorId(parametro);
+			promocion = new PromocionAxB(tematica, atraccionesDAO.buscarPorId(atracciones[1]), atraccionesDAO.buscarPorId(atracciones[2]), atraccionGratis);
+			break;
+		}
+		return promocion;
 	}
 }
