@@ -12,26 +12,26 @@ import model.Usuario;
 
 public class UserDAOImpl implements UserDAO {
 
-	
+	//esto debería ser por ID pero no se como obtenerlo
 	public int updateDineroDisponible(Usuario usuario) throws SQLException {
-		String sql = "UPDATE usuarios SET dinero_disponible = ? WHERE id_usuario = ?";
+		String sql = "UPDATE usuarios SET dinero_disponible = ? WHERE nombre_usuario = ?";
 		Connection conn = ConnectionProvider.getConnection();
 
 		PreparedStatement statement = conn.prepareStatement(sql);
-		statement.setInt(1, usuario.getMonedasDisponibles());
-		statement.setInt(2, usuario.getId_usuario());
+		statement.setDouble(1, usuario.getMonedasDisponibles());
+		statement.setString(2, usuario.getNombre());
 		int rows = statement.executeUpdate();
 
 		return rows;
 	}
 	
 	public int updateTiempoDisponible(Usuario usuario) throws SQLException {
-		String sql = "UPDATE usuarios SET tiempo_disponible = ? WHERE id_usuario = ?";
+		String sql = "UPDATE usuarios SET tiempo_disponible = ? WHERE nombre_usuario = ?";
 		Connection conn = ConnectionProvider.getConnection();
 
 		PreparedStatement statement = conn.prepareStatement(sql);
-		statement.setInt(1, usuario.getTiempoDisponible());
-		statement.setInt(2, usuario.getId_usuario());
+		statement.setDouble(1, usuario.getTiempoDisponible());
+		statement.setString(2, usuario.getNombre());
 		int rows = statement.executeUpdate();
 
 		return rows;
@@ -52,6 +52,7 @@ public class UserDAOImpl implements UserDAO {
 		return usuario;
 	}
 
+	
 	public Usuario buscarPorId(int id) throws SQLException {
 		String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
 		Connection conn = ConnectionProvider.getConnection();
@@ -65,13 +66,18 @@ public class UserDAOImpl implements UserDAO {
 			usuario = toUsuario(resultados);
 		}
 		return usuario;
-	}
+	}	
+	
 
 	private Usuario toUsuario(ResultSet resultados) throws SQLException {
-		return new Usuario(resultados.getString("nombre_usuario"),
-				resultados.getInt("dinero_disponible"), resultados.getInt("tiempo_disponible"),
-				resultados.getInt("id_tipo_atraccion_preferida"));
+		String nombre = resultados.getString("nombre_usuario");
+		String tematica = TipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica_preferida"));
+		int dinero = resultados.getInt("dinero_disponible");
+		double tiempo = resultados.getInt("tiempo_disponible");
+		Usuario usuario = new Usuario(nombre, tematica, dinero, tiempo);
+		return usuario;
 	}
+	
 //	public int insert(User user) {
 //		try {
 //			String sql = "INSERT INTO USERS (USERNAME, PASSWORD) VALUES (?, ?)";
@@ -157,19 +163,14 @@ public class UserDAOImpl implements UserDAO {
 
 	public List<Usuario> findAll() {
 		try {
-			String sql = "SELECT * FROM USUARIOS";
+			String sql = "SELECT * FROM usuarios";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
 
 			List<Usuario> listaUsuarios = new LinkedList<Usuario>();
 			while (resultados.next()) {
-				String nombre = resultados.getString("nombre");
-				String tematica = resultados.getString("atraccion_favorita");
-				int monedas = resultados.getInt("cantidad_monedas");
-				double tiempo = resultados.getInt("tiempo_disponible");
-				Usuario usuario = new Usuario(nombre, tematica, monedas, tiempo);
-				listaUsuarios.add(usuario);
+				listaUsuarios.add(toUsuario(resultados));
 			}
 			return listaUsuarios;
 		} catch (Exception e) {

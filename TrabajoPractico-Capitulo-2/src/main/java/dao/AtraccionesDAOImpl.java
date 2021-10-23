@@ -15,18 +15,18 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 
 	public List<Atraccion> findAll() {
 		try {
-			String sql = "SELECT * FROM ATRACCIONES";
+			String sql = "SELECT * FROM atracciones";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
 
 			List<Atraccion> listaAtracciones = new LinkedList<Atraccion>();
 			while (resultados.next()) {
-				String nombre = resultados.getString("nombre");
-				String tematica = resultados.getString("tipo");
+				String nombre = resultados.getString("nombre_atraccion");
+				String tematica = TipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica"));
 				double monedas = resultados.getInt("costo");
-				double tiempo = resultados.getInt("tiempo");
-				int cupo = resultados.getInt("cupo");
+				double tiempo = resultados.getInt("duracion");
+				int cupo = resultados.getInt("cupo_actual");
 				Atraccion atraccion = new Atraccion(nombre, tematica, monedas, tiempo, cupo);
 				listaAtracciones.add(atraccion);
 			}
@@ -49,20 +49,20 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 		return rows;
 	}
 
-//	public Atraccion buscarPorNombre(String nombre) throws SQLException {
-//		String sql = "SELECT * FROM atracciones WHERE nombre_atraccion = ?";
-//		Connection conn = ConnectionProvider.getConnection();
-//		PreparedStatement statement = conn.prepareStatement(sql);
-//		statement.setString(1, nombre);
-//		ResultSet resultados = statement.executeQuery();
-//
-//		Atraccion atraccion = null;
-//
-//		if (resultados.next()) {
-//			atraccion = toAtraccion(resultados);
-//		}
-//		return atraccion;
-//	}
+	public Atraccion buscarPorNombre(String nombre) throws SQLException {
+		String sql = "SELECT * FROM atracciones WHERE nombre_atraccion = ?";
+		Connection conn = ConnectionProvider.getConnection();
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setString(1, nombre);
+		ResultSet resultados = statement.executeQuery();
+
+		Atraccion atraccion = null;
+
+		if (resultados.next()) {
+			atraccion = toAtraccion(resultados);
+		}
+		return atraccion;
+	}
 
 	public Atraccion buscarPorId(int id) throws SQLException {
 		String sql = "SELECT nombre_atraccion FROM atracciones WHERE id_atraccion = ?";
@@ -80,7 +80,7 @@ public class AtraccionesDAOImpl implements AtraccionesDAO {
 	}
 	
 	private Atraccion toAtraccion(ResultSet resultados) throws SQLException {
-		return new Atraccion(resultados.getString("nombre_atraccion"), resultados.getInt("id_tipo_atraccion"), 
+		return new Atraccion(resultados.getString("nombre_atraccion"), TipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica")), 
 				resultados.getInt("costo"), resultados.getInt("duracion"), resultados.getInt("cupo_actual"));
 	}
 }
