@@ -15,7 +15,7 @@ import model.PromocionAbsoluta;
 import model.PromocionAxB;
 import model.PromocionPorcentual;
 
-public class PromocionesDAOImpl implements PromocionesDAO {
+public class PromocionDAOImpl implements PromocionDAO {
 
 	public List<Promocion> findAll() {
 		try {
@@ -79,7 +79,7 @@ public class PromocionesDAOImpl implements PromocionesDAO {
 
 	private Promocion toPromocion(ResultSet resultados) throws SQLException {
 		Promocion promocion = null;
-		AtraccionesDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
+		AtraccionDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
 
 		int tipoPromocion = resultados.getInt("id_tipo_promocion");
 		String tematica = resultados.getString("nombre_promocion");
