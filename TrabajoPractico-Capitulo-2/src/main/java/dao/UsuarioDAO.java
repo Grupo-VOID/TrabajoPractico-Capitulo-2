@@ -9,5 +9,6 @@ public interface UsuarioDAO extends GenericDAO<Usuario> {
 	public int updateTiempoDisponible(Usuario usuario);
 	public Usuario buscarPorNombre(String nombre);
 	public Usuario buscarPorId(int id);
+	public int encontrarIdUsuario(Usuario usuario);
 
 }

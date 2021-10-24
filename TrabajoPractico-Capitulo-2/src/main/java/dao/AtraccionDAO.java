@@ -9,9 +9,11 @@ public interface AtraccionDAO extends GenericDAO<Atraccion> {
 	
 	public List<Atraccion> findAll();
 
-	public int updateCupoActual(Atraccion atraccion) throws SQLException;
+	public int updateCupoActual(Atraccion atraccion);
 
-	public Atraccion buscarPorNombre(String nombre) throws SQLException;
+	public Atraccion buscarPorNombre(String nombre);
 
-	public Atraccion buscarPorId(int id) throws SQLException;
+	public Atraccion buscarPorId(int id);
+	
+	public int encontrarIdAtraccion(Atraccion atraccion);
 }

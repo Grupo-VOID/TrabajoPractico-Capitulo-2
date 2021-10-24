@@ -9,6 +9,7 @@ import java.util.List;
 
 import jdbc.ConnectionProvider;
 import model.Atraccion;
+import model.Usuario;
 
 public class AtraccionDAOImpl implements AtraccionDAO {
 
@@ -30,7 +31,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 
-	public int updateCupoActual(Atraccion atraccion) throws SQLException {
+	public int updateCupoActual(Atraccion atraccion) {
 		try {
 			String sql = "UPDATE atraccioones SET cupo_actual = ? WHERE nombre_atraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
@@ -46,7 +47,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 
-	public Atraccion buscarPorNombre(String nombre) throws SQLException {
+	public Atraccion buscarPorNombre(String nombre){
 		try {
 			String sql = "SELECT * FROM atracciones WHERE nombre_atraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
@@ -65,7 +66,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 
-	public Atraccion buscarPorId(int id) throws SQLException {
+	public Atraccion buscarPorId(int id) {
 		try {
 			String sql = "SELECT * FROM atracciones WHERE id_atraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
@@ -79,6 +80,25 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 				atraccion = toAtraccion(resultados);
 			}
 			return atraccion;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+	
+	public int encontrarIdAtraccion(Atraccion atraccion) {
+		try {
+			String sql = "SELECT * FROM atracciones WHERE nombre_atraccion = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, atraccion.getNombre());
+			ResultSet resultados = statement.executeQuery();
+
+			int id = 0;
+			
+			if (resultados.next()) {
+				id = resultados.getInt("id_atraccion");
+			}
+			return id;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}

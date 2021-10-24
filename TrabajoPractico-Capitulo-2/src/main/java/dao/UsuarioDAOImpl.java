@@ -98,6 +98,25 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			throw new MissingDataException(e);
 		}
 	}
+	
+	public int encontrarIdUsuario(Usuario usuario) {
+		try {
+			String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, usuario.getNombre());
+			ResultSet resultados = statement.executeQuery();
+
+			int id = 0;
+			
+			if (resultados.next()) {
+				id = resultados.getInt("id_usuario");
+			}
+			return id;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
 
 	private Usuario toUsuario(ResultSet resultados) throws SQLException {
 		TipoAtraccionDAO tipoAtraccionDAO = DAOFactory.getTipoAtraccionDAO();

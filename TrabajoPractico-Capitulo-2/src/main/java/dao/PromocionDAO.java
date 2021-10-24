@@ -7,4 +7,5 @@ public interface PromocionDAO extends GenericDAO<Promocion> {
 	
 	public Promocion buscarPorId(int id);
 	
+	public int encontrarIdPromocion(Promocion promocion);
 }
