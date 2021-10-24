@@ -3,6 +3,7 @@ package dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import model.Adquirible;
 import model.Atraccion;
 
 public interface AtraccionDAO extends GenericDAO<Atraccion> {
@@ -15,5 +16,5 @@ public interface AtraccionDAO extends GenericDAO<Atraccion> {
 
 	public Atraccion buscarPorId(int id);
 	
-	public int encontrarIdAtraccion(Atraccion atraccion);
+	public int encontrarIdAtraccion(Adquirible atraccion);
 }

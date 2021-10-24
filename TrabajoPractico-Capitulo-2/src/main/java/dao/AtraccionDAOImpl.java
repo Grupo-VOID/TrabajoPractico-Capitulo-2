@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
+import model.Adquirible;
 import model.Atraccion;
 import model.Usuario;
 
@@ -37,7 +38,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, atraccion.getCupoActual());
+			statement.setInt(1, atraccion.getCupoMaximo() - atraccion.getCupoActual());
 			statement.setString(2, atraccion.getNombre());
 			int rows = statement.executeUpdate();
 
@@ -85,7 +86,7 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 		}
 	}
 	
-	public int encontrarIdAtraccion(Atraccion atraccion) {
+	public int encontrarIdAtraccion(Adquirible atraccion) {
 		try {
 			String sql = "SELECT * FROM atracciones WHERE nombre_atraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();

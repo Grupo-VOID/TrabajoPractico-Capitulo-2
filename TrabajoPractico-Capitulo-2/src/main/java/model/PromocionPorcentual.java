@@ -1,5 +1,8 @@
 package model;
 
+import dao.AtraccionDAO;
+import dao.DAOFactory;
+
 public class PromocionPorcentual extends Promocion {
 
 	private double porcentajeDescuento = 0;
@@ -29,18 +32,22 @@ public class PromocionPorcentual extends Promocion {
 
 	@Override
 	public String toString() {
-		return (this.getNombre()+": Si compra la atracciï¿½n " + this.atraccionUno.getNombre() 
-				+ " y la atracciï¿½n " + this.atraccionDos.getNombre()
+		return (this.getNombre()+": Si compra la atracción " + this.atraccionUno.getNombre() 
+				+ " y la atracción " + this.atraccionDos.getNombre()
 				+ ", se ofrece un descuento del " + this.porcentajeDescuento
 				+ "% sobre el costo total."
-				+ "\n Temï¿½tica: " + this.getTematica()
+				+ "\n Temática: " + this.getTematica()
 				+ "\n Costo Total con descuento= $" + this.getCosto()
-				+ "\n Duraciï¿½n Total= " + this.getTiempo() + " horas");
+				+ "\n Duración Total= " + this.getTiempo() + " horas");
 	}
 
 	public void comprar() {
 		this.atraccionUno.comprar();
 		this.atraccionDos.comprar();
+		
+		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionesDAO();
+		atraccionDAO.updateCupoActual(atraccionUno);
+		atraccionDAO.updateCupoActual(atraccionDos);
 	}
 
 	@Override

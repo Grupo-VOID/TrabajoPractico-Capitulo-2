@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
+import model.Adquirible;
 import model.Atraccion;
 import model.Promocion;
 import model.PromocionAbsoluta;
@@ -57,7 +58,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 		}
 	}
 	
-	public int encontrarIdPromocion(Promocion promocion) {
+	public int encontrarIdPromocion(Adquirible promocion) {
 		try {
 			String sql = "SELECT * FROM promociones WHERE nombre_promocion = ?";
 			Connection conn = ConnectionProvider.getConnection();

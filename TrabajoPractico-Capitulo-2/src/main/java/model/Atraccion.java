@@ -1,5 +1,8 @@
 package model;
 
+import dao.AtraccionDAO;
+import dao.DAOFactory;
+import dao.UsuarioDAO;
 import model.Adquirible;
 import model.Atraccion;
 
@@ -50,6 +53,9 @@ public class Atraccion implements Adquirible {
 
 	public void comprar() {
 		lugaresOcupados++;
+		
+		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionesDAO();
+		atraccionDAO.updateCupoActual(this);
 	}
 
 	public Atraccion[] atraccionesIncluidas() {

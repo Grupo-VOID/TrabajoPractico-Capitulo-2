@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import dao.DAOFactory;
+import dao.ItinerarioDAO;
 import model.Adquirible;
 
 public class Itinerario {
@@ -9,10 +11,18 @@ public class Itinerario {
 	private double tiempoTotal = 0;
 	private double costoMonedas = 0;
 
-	public void agregarAdquirible(Adquirible nuevaAtraccion) {
+	public void agregarAdquirible(Adquirible nuevaAtraccion, Usuario usuario) {
 		listaAtracciones.add(nuevaAtraccion);
 		tiempoTotal += nuevaAtraccion.getTiempo();
-		costoMonedas += nuevaAtraccion.getCosto();
+		costoMonedas += nuevaAtraccion.getCosto();		
+
+		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
+
+		if(nuevaAtraccion.esPromocion()) {
+			itinerarioDAO.insertPromocion(usuario, nuevaAtraccion);
+		} else {
+			itinerarioDAO.insertAtraccion(usuario, nuevaAtraccion);
+		}
 	}
 
 	public ArrayList<Adquirible> getListaAtracciones() {

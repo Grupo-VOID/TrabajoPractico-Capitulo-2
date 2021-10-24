@@ -3,11 +3,11 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
+import model.Adquirible;
 import model.Atraccion;
 import model.Itinerario;
 import model.Promocion;
@@ -15,7 +15,9 @@ import model.Usuario;
 
 
 public class ItinerarioDAOImpl implements ItinerarioDAO {
-	public int insertAtraccion(Usuario usuario, Atraccion atraccion) throws SQLException {
+	
+	public int insertAtraccion(Usuario usuario, Adquirible atraccion) {
+		try {
 		String sql = "INSERT INTO itinerarios (id_usuario, id_atraccion_comprada) VALUES (?, ?)";
 		Connection conn = ConnectionProvider.getConnection();
 		
@@ -28,9 +30,13 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		int rows = statement.executeUpdate();
 
 		return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	public int insertPromocion(Usuario usuario, Promocion promocion) throws SQLException {
+	public int insertPromocion(Usuario usuario, Adquirible promocion){
+		try {
 		String sql = "INSERT INTO itinerarios (id_usuario, id_promocion_comprada) VALUES (?, ?)";
 		Connection conn = ConnectionProvider.getConnection();
 		
@@ -43,9 +49,13 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		int rows = statement.executeUpdate();
 
 		return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 	
-	public List<Itinerario> buscarPorUsuario(Usuario usuario) throws SQLException {
+	public List<Itinerario> buscarPorUsuario(Usuario usuario) {
+		try {
 		String sql = "SELECT * FROM itinerario WHERE id_usuario = ?";
 		Connection conn = ConnectionProvider.getConnection();
 		PreparedStatement statement = conn.prepareStatement(sql);
@@ -61,19 +71,6 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		//			resultados.getInt("id_promocion_comprada"));
 		}
 		return (List<Itinerario>) itinerario;
-	}
-	
-	public int countAll(){
-		try {
-			String sql = "SELECT count(*) AS 'total' FROM itinerario";
-			Connection conn = ConnectionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet resultados = statement.executeQuery();
-
-			resultados.next();
-			int total = resultados.getInt("total");
-			
-			return total;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}

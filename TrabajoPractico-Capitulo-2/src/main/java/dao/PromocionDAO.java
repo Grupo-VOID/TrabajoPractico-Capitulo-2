@@ -1,5 +1,6 @@
 package dao;
 
+import model.Adquirible;
 import model.Promocion;
 
 public interface PromocionDAO extends GenericDAO<Promocion> {
@@ -7,5 +8,5 @@ public interface PromocionDAO extends GenericDAO<Promocion> {
 	
 	public Promocion buscarPorId(int id);
 	
-	public int encontrarIdPromocion(Promocion promocion);
+	public int encontrarIdPromocion(Adquirible promocion);
 }

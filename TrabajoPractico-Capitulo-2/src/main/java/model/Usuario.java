@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+import dao.DAOFactory;
+import dao.UsuarioDAO;
+
 public class Usuario {
 
 	private final String NOMBRE;
@@ -50,11 +53,15 @@ public class Usuario {
 	public void aceptarSugerencia(Adquirible sugerencia) {
 		this.monedasDisponibles -= sugerencia.getCosto();
 		this.tiempoDisponible -= sugerencia.getTiempo();
-		this.itinerarioUsuario.agregarAdquirible(sugerencia);
+		this.itinerarioUsuario.agregarAdquirible(sugerencia,this);
 		for (Atraccion i : sugerencia.atraccionesIncluidas()) {
 			listaAtracciones.add(i);
 		}
 		sugerencia.comprar();
+		
+		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
+		usuarioDAO.updateDineroDisponible(this);
+		usuarioDAO.updateTiempoDisponible(this);
 	}
 
 	public double getMonedasIniciales() {

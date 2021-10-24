@@ -1,5 +1,8 @@
 package model;
 
+import dao.AtraccionDAO;
+import dao.DAOFactory;
+
 public class PromocionAxB extends Promocion {
 
 	private Atraccion atraccionGratis;
@@ -41,15 +44,20 @@ public class PromocionAxB extends Promocion {
 		this.atraccionUno.comprar();
 		this.atraccionDos.comprar();
 		this.atraccionGratis.comprar();
+		
+		AtraccionDAO atraccionDAO = DAOFactory.getAtraccionesDAO();
+		atraccionDAO.updateCupoActual(atraccionUno);
+		atraccionDAO.updateCupoActual(atraccionDos);
+		atraccionDAO.updateCupoActual(atraccionGratis);
 	}
 
 	@Override
 	public String toString() {
-		return (this.getNombre() +": Si se compra la atracciï¿½n " + this.atraccionUno.getNombre() 
-				+ " y la atracciï¿½n " + this.atraccionDos.getNombre()
-				+ ", se lleva la atracciï¿½n " + this.atraccionGratis.getNombre() + " gratis." 
-				+ "\n Temï¿½tica: " + this.getTematica()
+		return (this.getNombre() +": Si se compra la atracción " + this.atraccionUno.getNombre() 
+				+ " y la atracción " + this.atraccionDos.getNombre()
+				+ ", se lleva la atracción " + this.atraccionGratis.getNombre() + " gratis." 
+				+ "\n Temática: " + this.getTematica()
 				+"\n Costo Total= $" + this.getCosto()
-				+"\n Duraciï¿½n Total= " + this.getTiempo() + " horas");
+				+"\n Duración Total= " + this.getTiempo() + " horas");
 	}
 }
