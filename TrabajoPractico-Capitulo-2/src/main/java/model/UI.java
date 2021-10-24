@@ -83,7 +83,7 @@ public abstract class UI {
 						+ "\n_Tiempo disponible: " + usuarioTemp.getTiempoDisponible() + " horas\n");
 				Collections.sort(parque.getCatalogo(), new Sugerencia(usuarioTemp));
 				mostrarSugerencia(parque, usuarioTemp);
-				Impresora.imprimir(usuarioTemp);
+				//Impresora.imprimir(usuarioTemp);
 				parque.getUsuarios().remove(usuarioTemp);
 				System.out.println();
 				idUsuario = 0;

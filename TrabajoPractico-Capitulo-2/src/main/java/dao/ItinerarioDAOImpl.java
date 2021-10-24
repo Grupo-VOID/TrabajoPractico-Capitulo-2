@@ -14,7 +14,7 @@ import model.Promocion;
 import model.Usuario;
 
 
-public class ItinerarioDAOImpl {
+public class ItinerarioDAOImpl implements ItinerarioDAO {
 	public int insertAtraccion(Usuario usuario, Atraccion atraccion) throws SQLException {
 		String sql = "INSERT INTO itinerarios (id_usuario, id_atraccion_comprada) VALUES (?, ?)";
 		Connection conn = ConnectionProvider.getConnection();
@@ -63,29 +63,37 @@ public class ItinerarioDAOImpl {
 		return (List<Itinerario>) itinerario;
 	}
 	
-	public int countAll() throws SQLException {
-		String sql = "SELECT count(*) AS 'total' FROM itinerario";
-		Connection conn = ConnectionProvider.getConnection();
-		PreparedStatement statement = conn.prepareStatement(sql);
-		ResultSet resultados = statement.executeQuery();
+	public int countAll(){
+		try {
+			String sql = "SELECT count(*) AS 'total' FROM itinerario";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
 
-		resultados.next();
-		int total = resultados.getInt("total");
-
-		return total;
+			resultados.next();
+			int total = resultados.getInt("total");
+			
+			return total;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
 	}
 
-	public List<Itinerario> findAll() throws SQLException {
-		String sql = "SELECT * FROM itinerario";
-		Connection conn = ConnectionProvider.getConnection();
-		PreparedStatement statement = conn.prepareStatement(sql);
-		ResultSet resultados = statement.executeQuery();
+	public List<Itinerario> findAll() {
+		try {
+			String sql = "SELECT * FROM itinerario";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet resultados = statement.executeQuery();
 
-		List<Itinerario> itinerario = new LinkedList<Itinerario>();
-		while (resultados.next()) {
-			//itinerario.add(toItinerario(resultados));
+			List<Itinerario> itinerario = new LinkedList<Itinerario>();
+			while (resultados.next()) {
+				//itinerario.add(toItinerario(resultados));
+			}
+			return itinerario;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
 		}
-		return itinerario;
 	}
 
 	/*private Itinerario toItinerario(ResultSet resultados) throws SQLException {
