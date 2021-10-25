@@ -23,7 +23,7 @@ public class App {
 		
 		parque.cargarCatalogo();
 		
-		UI.eleccionDeMenu(parque); // Metodo para elegir modo de compra
+		UI.compraPorUsuario(parque); // Metodo para elegir modo de compra
 	}
 
 }

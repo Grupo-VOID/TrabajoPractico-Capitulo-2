@@ -22,9 +22,12 @@ public class ParqueAtracciones {
 	}
 
 	public void mostrarUsuarios() {
-		for (int i = 0; i < this.usuarios.size(); i++) {
+		int i;
+		for (i = 0; i < this.usuarios.size(); i++) {
 			System.out.print(i + 1 + ". " + this.usuarios.get(i).getNombre() + "\n");
 		}
+		System.out.println("\n");
+		System.out.print(i + 1 + ". " + "Finalizar programa\n");
 	}
 
 	public void cargarCatalogo() {
