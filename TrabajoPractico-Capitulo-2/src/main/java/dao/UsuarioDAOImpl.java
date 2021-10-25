@@ -9,7 +9,6 @@ import java.util.List;
 import jdbc.ConnectionProvider;
 import model.Usuario;
 
-
 public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public List<Usuario> findAll() {
@@ -61,25 +60,6 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
-	public Usuario buscarPorNombre(String nombre) {
-		try {
-			String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
-			Connection conn = ConnectionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, nombre);
-			ResultSet resultados = statement.executeQuery();
-
-			Usuario usuario = null;
-
-			if (resultados.next()) {
-				usuario = toUsuario(resultados);
-			}
-			return usuario;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
 	public Usuario buscarPorId(int id) {
 		try {
 			String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";
@@ -98,7 +78,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			throw new MissingDataException(e);
 		}
 	}
-	
+
 	public int encontrarIdUsuario(Usuario usuario) {
 		try {
 			String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
@@ -108,7 +88,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 			ResultSet resultados = statement.executeQuery();
 
 			int id = 0;
-			
+
 			if (resultados.next()) {
 				id = resultados.getInt("id_usuario");
 			}
@@ -120,7 +100,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	private Usuario toUsuario(ResultSet resultados) throws SQLException {
 		TipoAtraccionDAO tipoAtraccionDAO = DAOFactory.getTipoAtraccionDAO();
-		
+
 		String nombre = resultados.getString("nombre_usuario");
 		String tematica = tipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica_preferida"));
 		int dinero = resultados.getInt("dinero_disponible");

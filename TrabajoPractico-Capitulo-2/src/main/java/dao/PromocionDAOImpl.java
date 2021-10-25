@@ -39,25 +39,6 @@ public class PromocionDAOImpl implements PromocionDAO {
 		}
 	}
 
-	public Promocion buscarPorNombre(String nombre) {
-		try {
-			String sql = "SELECT * FROM promociones WHERE nombre_promocion = ?";
-			Connection conn = ConnectionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, nombre);
-			ResultSet resultados = statement.executeQuery();
-
-			Promocion promocion = null;
-
-			if (resultados.next()) {
-				promocion = toPromocion(resultados);
-			}
-			return promocion;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-	
 	public int encontrarIdPromocion(Adquirible promocion) {
 		try {
 			String sql = "SELECT * FROM promociones WHERE nombre_promocion = ?";
@@ -67,7 +48,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 			ResultSet resultados = statement.executeQuery();
 
 			int id = 0;
-			
+
 			if (resultados.next()) {
 				id = resultados.getInt("id_promocion");
 			}
@@ -106,32 +87,31 @@ public class PromocionDAOImpl implements PromocionDAO {
 		int parametro = resultados.getInt("parametro");
 
 		String[] atr = atraccionesIncluidas.split(" ");
-		
-		Atraccion [] atracciones = new Atraccion [2];
+
+		Atraccion[] atracciones = new Atraccion[2];
 		int contador = 0;
 
-		for(String i: atr) {
-			if(tipoPromocion==3) {
-				if(Integer.parseInt(i)!=parametro) {
+		for (String i : atr) {
+			if (tipoPromocion == 3) {
+				if (Integer.parseInt(i) != parametro) {
 					atracciones[contador] = atraccionesDAO.buscarPorId(Integer.parseInt(i));
 					contador++;
 				}
-			}
-			else {
+			} else {
 				atracciones[contador] = atraccionesDAO.buscarPorId(Integer.parseInt(i));
 				contador++;
 			}
 		}
 		switch (tipoPromocion) {
 		case 1:
-			promocion = new PromocionPorcentual(tematica, atracciones [0],atracciones[1], parametro);
+			promocion = new PromocionPorcentual(tematica, atracciones[0], atracciones[1], parametro);
 			break;
 		case 2:
-			promocion = new PromocionAbsoluta(tematica, atracciones [0],atracciones[1], parametro);
+			promocion = new PromocionAbsoluta(tematica, atracciones[0], atracciones[1], parametro);
 			break;
 		case 3:
 			Atraccion atraccionGratis = atraccionesDAO.buscarPorId(parametro);
-			promocion = new PromocionAxB(tematica, atracciones [0],atracciones[1], atraccionGratis);
+			promocion = new PromocionAxB(tematica, atracciones[0], atracciones[1], atraccionGratis);
 			break;
 		}
 		return promocion;

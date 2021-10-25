@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import dao.DAOFactory;
 import dao.ItinerarioDAO;
-import model.Adquirible;
 
 public class Itinerario {
 	private ArrayList<Adquirible> listaAtracciones = new ArrayList<Adquirible>();

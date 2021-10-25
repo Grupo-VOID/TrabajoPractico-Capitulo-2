@@ -53,11 +53,11 @@ public class PromocionAxB extends Promocion {
 
 	@Override
 	public String toString() {
-		return (this.getNombre() +": Si se compra la atracción " + this.atraccionUno.getNombre() 
-				+ " y la atracción " + this.atraccionDos.getNombre()
-				+ ", se lleva la atracción " + this.atraccionGratis.getNombre() + " gratis." 
-				+ "\n Temática: " + this.getTematica()
+		return (this.getNombre() +": Si se compra la atraccion " + this.atraccionUno.getNombre() 
+				+ " y la atraccion " + this.atraccionDos.getNombre()
+				+ ", se lleva la atraccion " + this.atraccionGratis.getNombre() + " gratis." 
+				+ "\n Tematica: " + this.getTematica()
 				+"\n Costo Total= $" + this.getCosto()
-				+"\n Duración Total= " + this.getTiempo() + " horas");
+				+"\n Duracion Total= " + this.getTiempo() + " horas");
 	}
 }

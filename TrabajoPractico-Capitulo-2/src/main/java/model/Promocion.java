@@ -19,7 +19,7 @@ public abstract class Promocion implements Adquirible {
 	public abstract Atraccion[] atraccionesIncluidas();
 
 	public String getNombre() {
-		return "Pack " + this.TEMATICA;
+		return this.TEMATICA;
 	}
 
 	public String getTematica() {

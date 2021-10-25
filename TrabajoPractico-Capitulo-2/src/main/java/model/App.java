@@ -20,10 +20,10 @@ public class App {
 		parque.agregarUsuarios(usuarioDAO.findAll());
 		parque.agregarAtracciones(new LinkedList<Adquirible>(atraccionesDAO.findAll()));
 		parque.agregarPromociones(new LinkedList<Adquirible>(promocionesDAO.findAll()));
-		
+
 		parque.cargarCatalogo();
-		
-		UI.compraPorUsuario(parque); // Metodo para elegir modo de compra
+
+		UI.compraPorUsuario(parque);
 	}
 
 }

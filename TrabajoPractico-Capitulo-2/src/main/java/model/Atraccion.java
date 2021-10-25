@@ -2,8 +2,6 @@ package model;
 
 import dao.AtraccionDAO;
 import dao.DAOFactory;
-import dao.UsuarioDAO;
-import model.Adquirible;
 import model.Atraccion;
 
 public class Atraccion implements Adquirible {
@@ -69,9 +67,9 @@ public class Atraccion implements Adquirible {
 
 	@Override
 	public String toString() {
-		return String.format("Atracción: " + this.NOMBRE 
-				+ ". Temática: " + this.getTematica()
+		return String.format("Atraccion: " + this.NOMBRE 
+				+ ". Tematica: " + this.getTematica()
 				+ "\n Costo Total= $" + this.getCosto()
-				+ "\n Duración Total= " + this.getTiempo() + " horas");
+				+ "\n Duracion Total= " + this.getTiempo() + " horas");
 	}
 }

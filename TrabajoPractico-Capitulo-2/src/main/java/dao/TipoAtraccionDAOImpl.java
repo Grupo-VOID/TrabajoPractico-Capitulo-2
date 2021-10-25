@@ -3,12 +3,11 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
 
-public class TipoAtraccionDAOImpl implements TipoAtraccionDAO{
+public class TipoAtraccionDAOImpl implements TipoAtraccionDAO {
 
 	public String buscarPorId(int id) {
 		try {

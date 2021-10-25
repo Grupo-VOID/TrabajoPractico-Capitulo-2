@@ -2,8 +2,6 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
@@ -51,50 +49,8 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 		}
 	}
 
-	public List<Itinerario> buscarPorUsuario(Usuario usuario) {
-		try {
-			String sql = "SELECT * FROM itinerario WHERE id_usuario = ?";
-			Connection conn = ConnectionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-
-			UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
-
-			statement.setInt(1, usuarioDAO.encontrarIdUsuario(usuario));
-			ResultSet resultados = statement.executeQuery();
-
-			Itinerario itinerario = new Itinerario();
-			while (resultados.next()) {
-				// itinerario[].add(resultados.getInt("id_usuario"),
-				// resultados.getInt("id_atraccion_comprada"),
-				// resultados.getInt("id_promocion_comprada"));
-			}
-			return (List<Itinerario>) itinerario;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
+	@Override
 	public List<Itinerario> findAll() {
-		try {
-			String sql = "SELECT * FROM itinerario";
-			Connection conn = ConnectionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet resultados = statement.executeQuery();
-
-			List<Itinerario> itinerario = new LinkedList<Itinerario>();
-			while (resultados.next()) {
-				// itinerario.add(toItinerario(resultados));
-			}
-			return itinerario;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
+		return null;
 	}
-
-	/*
-	 * private Itinerario toItinerario(ResultSet resultados) throws SQLException {
-	 * return new Itinerario(resultados.getInt("id_usuario"),
-	 * resultados.getInt("id_atraccion_comprada"),
-	 * resultados.getInt("id_promocion_comprada")); }
-	 */
 }

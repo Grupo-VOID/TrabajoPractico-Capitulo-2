@@ -13,11 +13,11 @@ public class DAOFactory {
 	public static PromocionDAO getPromocionesDAO() {
 		return new PromocionDAOImpl();
 	}
-	
+
 	public static TipoAtraccionDAO getTipoAtraccionDAO() {
 		return new TipoAtraccionDAOImpl();
 	}
-	
+
 	public static ItinerarioDAO getItinerarioDAO() {
 		return new ItinerarioDAOImpl();
 	}
