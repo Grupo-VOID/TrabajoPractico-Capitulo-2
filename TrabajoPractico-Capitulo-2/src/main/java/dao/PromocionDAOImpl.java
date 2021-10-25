@@ -44,7 +44,7 @@ public class PromocionDAOImpl implements PromocionDAO {
 			String sql = "SELECT * FROM promociones WHERE nombre_promocion = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, promocion.getNombre());
+			statement.setString(1, promocion.getTematica());
 			ResultSet resultados = statement.executeQuery();
 
 			int id = 0;
