@@ -23,7 +23,6 @@ public class App {
 
 		parque.cargarCatalogo();
 
-		//UI.compraPorUsuario(parque);
 		UI.eleccionDeMenu(parque); 
 	}
 
