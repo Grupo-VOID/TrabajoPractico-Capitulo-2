@@ -60,8 +60,7 @@ public class Usuario {
 		sugerencia.comprar();
 		
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
-		usuarioDAO.updateDineroDisponible(this);
-		usuarioDAO.updateTiempoDisponible(this);
+		usuarioDAO.updateUsuario(this);
 	}
 
 	public double getMonedasIniciales() {

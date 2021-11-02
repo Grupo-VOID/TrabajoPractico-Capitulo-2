@@ -28,30 +28,15 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
-	public int updateDineroDisponible(Usuario usuario) {
+	public int updateUsuario(Usuario usuario) {
 		try {
-			String sql = "UPDATE usuarios SET dinero_disponible = ? WHERE nombre_usuario = ?";
+			String sql = "UPDATE usuarios SET dinero_disponible = ?, tiempo_disponible = ? WHERE nombre_usuario = ?";
 			Connection conn = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setDouble(1, usuario.getMonedasDisponibles());
-			statement.setString(2, usuario.getNombre());
-			int rows = statement.executeUpdate();
-
-			return rows;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
-
-	public int updateTiempoDisponible(Usuario usuario) {
-		try {
-			String sql = "UPDATE usuarios SET tiempo_disponible = ? WHERE nombre_usuario = ?";
-			Connection conn = ConnectionProvider.getConnection();
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setDouble(1, usuario.getTiempoDisponible());
-			statement.setString(2, usuario.getNombre());
+			statement.setDouble(2, usuario.getTiempoDisponible());
+			statement.setString(3, usuario.getNombre());
 			int rows = statement.executeUpdate();
 
 			return rows;
