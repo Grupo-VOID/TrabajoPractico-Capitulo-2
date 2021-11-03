@@ -15,7 +15,10 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 	public List<Atraccion> findAll() {
 		try {
-			String sql = "SELECT * FROM atracciones";
+			String sql = "SELECT * \r\n"
+					+ "FROM atracciones\r\n"
+					+ "JOIN tematicas_atracciones ta ON ta.id_tematica = atracciones.id_tematica\r\n"
+					+ "GROUP BY atracciones.id_atraccion";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -49,7 +52,10 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 
 	public Atraccion buscarPorId(int id) {
 		try {
-			String sql = "SELECT * FROM atracciones WHERE id_atraccion = ?";
+			String sql = "SELECT * \r\n"
+					+ "FROM atracciones \r\n"
+					+ "JOIN tematicas_atracciones ta ON ta.id_tematica = atracciones.id_tematica\r\n"
+					+ "WHERE id_atraccion = ?";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
@@ -86,10 +92,9 @@ public class AtraccionDAOImpl implements AtraccionDAO {
 	}
 
 	private Atraccion toAtraccion(ResultSet resultados) throws SQLException {
-		TipoAtraccionDAO tipoAtraccionDAO = DAOFactory.getTipoAtraccionDAO();
 
 		String nombre = resultados.getString("nombre_atraccion");
-		String tematica = tipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica"));
+		String tematica = resultados.getString("nombre_tematica");
 		double monedas = resultados.getInt("costo");
 		double tiempo = resultados.getInt("duracion");
 		int cupo = resultados.getInt("cupo_actual");

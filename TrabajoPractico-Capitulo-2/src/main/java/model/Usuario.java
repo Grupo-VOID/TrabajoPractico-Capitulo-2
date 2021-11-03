@@ -7,6 +7,7 @@ import dao.UsuarioDAO;
 
 public class Usuario {
 
+	private final int ID;
 	private final String NOMBRE;
 	private final String TEMATICA_FAVORITA;
 	private final double MONEDAS_INICIALES;
@@ -16,7 +17,8 @@ public class Usuario {
 	protected Itinerario itinerarioUsuario;
 	private ArrayList<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
 
-	public Usuario(String nombre, String tematica, double monedas, double tiempo) {
+	public Usuario(int id, String nombre, String tematica, double monedas, double tiempo) {
+		this.ID=id;
 		this.NOMBRE = nombre;
 		this.TEMATICA_FAVORITA = tematica;
 		this.MONEDAS_INICIALES = monedas;
@@ -30,6 +32,10 @@ public class Usuario {
 		return NOMBRE;
 	}
 
+	public int getID() {
+		return ID;
+	}
+	
 	public String getTematica() {
 		return TEMATICA_FAVORITA;
 	}
@@ -75,5 +81,4 @@ public class Usuario {
 	public String toString() {
 		return this.NOMBRE + this.tiempoDisponible;
 	}
-	
 }

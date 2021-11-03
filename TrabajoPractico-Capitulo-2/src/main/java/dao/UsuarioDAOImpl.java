@@ -13,7 +13,10 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	public List<Usuario> findAll() {
 		try {
-			String sql = "SELECT * FROM usuarios";
+			String sql = "SELECT *\r\n"
+					+ "FROM usuarios\r\n"
+					+ "JOIN tematicas_atracciones ta ON ta.id_tematica = usuarios.id_tematica_preferida\r\n"
+					+ "GROUP BY usuarios.id_usuario";
 			Connection conn = ConnectionProvider.getConnection();
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet resultados = statement.executeQuery();
@@ -64,33 +67,33 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		}
 	}
 
-	public int encontrarIdUsuario(Usuario usuario) {
-		try {
-			String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
-			Connection conn = ConnectionProvider.getConnection();
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, usuario.getNombre());
-			ResultSet resultados = statement.executeQuery();
-
-			int id = 0;
-
-			if (resultados.next()) {
-				id = resultados.getInt("id_usuario");
-			}
-			return id;
-		} catch (Exception e) {
-			throw new MissingDataException(e);
-		}
-	}
+//	public int encontrarIdUsuario(Usuario usuario) {
+//		try {
+//			String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ?";
+//			Connection conn = ConnectionProvider.getConnection();
+//			PreparedStatement statement = conn.prepareStatement(sql);
+//			statement.setString(1, usuario.getNombre());
+//			ResultSet resultados = statement.executeQuery();
+//
+//			int id = 0;
+//
+//			if (resultados.next()) {
+//				id = resultados.getInt("id_usuario");
+//			}
+//			return id;
+//		} catch (Exception e) {
+//			throw new MissingDataException(e);
+//		}
+//	}
 
 	private Usuario toUsuario(ResultSet resultados) throws SQLException {
-		TipoAtraccionDAO tipoAtraccionDAO = DAOFactory.getTipoAtraccionDAO();
 
+		int id = resultados.getInt("id_usuario");
 		String nombre = resultados.getString("nombre_usuario");
-		String tematica = tipoAtraccionDAO.buscarPorId(resultados.getInt("id_tematica_preferida"));
+		String tematica = resultados.getString("nombre_tematica");
 		int dinero = resultados.getInt("dinero_disponible");
 		double tiempo = resultados.getInt("tiempo_disponible");
-		Usuario usuario = new Usuario(nombre, tematica, dinero, tiempo);
+		Usuario usuario = new Usuario(id, nombre, tematica, dinero, tiempo);
 		return usuario;
 	}
 }

@@ -16,11 +16,10 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			String sql = "INSERT INTO itinerarios (id_usuario, id_atraccion_comprada) VALUES (?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
-			UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 			AtraccionDAO atraccionDAO = DAOFactory.getAtraccionesDAO();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, usuarioDAO.encontrarIdUsuario(usuario));
+			statement.setInt(1, usuario.getID());
 			statement.setInt(2, atraccionDAO.encontrarIdAtraccion(atraccion));
 			int rows = statement.executeUpdate();
 
@@ -35,11 +34,10 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			String sql = "INSERT INTO itinerarios (id_usuario, id_promocion_comprada) VALUES (?, ?)";
 			Connection conn = ConnectionProvider.getConnection();
 
-			UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 			PromocionDAO promocionDAO = DAOFactory.getPromocionesDAO();
 
 			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, usuarioDAO.encontrarIdUsuario(usuario));
+			statement.setInt(1, usuario.getID());
 			statement.setInt(2, promocionDAO.encontrarIdPromocion(promocion));
 			int rows = statement.executeUpdate();
 

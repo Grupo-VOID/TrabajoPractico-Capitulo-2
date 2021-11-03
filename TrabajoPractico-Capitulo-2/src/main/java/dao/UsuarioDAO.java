@@ -7,6 +7,6 @@ public interface UsuarioDAO extends GenericDAO<Usuario> {
 
 	public Usuario buscarPorId(int id);
 
-	public int encontrarIdUsuario(Usuario usuario);
+//	public int encontrarIdUsuario(Usuario usuario);
 
 }
