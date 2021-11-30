@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 import dao.DAOFactory;
+import dao.ItinerarioDAO;
 import dao.UsuarioDAO;
 
 public class Usuario {
@@ -18,7 +19,7 @@ public class Usuario {
 	private ArrayList<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
 
 	public Usuario(int id, String nombre, String tematica, double monedas, double tiempo) {
-		this.ID=id;
+		this.ID = id;
 		this.NOMBRE = nombre;
 		this.TEMATICA_FAVORITA = tematica;
 		this.MONEDAS_INICIALES = monedas;
@@ -35,7 +36,7 @@ public class Usuario {
 	public int getID() {
 		return ID;
 	}
-	
+
 	public String getTematica() {
 		return TEMATICA_FAVORITA;
 	}
@@ -49,6 +50,9 @@ public class Usuario {
 	}
 
 	public ArrayList<Atraccion> getListaAtracciones() {
+		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
+		listaAtracciones = (ArrayList<Atraccion>) itinerarioDAO.atraccionesUsuario(this.getID());
+
 		return listaAtracciones;
 	}
 
@@ -59,12 +63,12 @@ public class Usuario {
 	public void aceptarSugerencia(Adquirible sugerencia) {
 		this.monedasDisponibles -= sugerencia.getCosto();
 		this.tiempoDisponible -= sugerencia.getTiempo();
-		this.itinerarioUsuario.agregarAdquirible(sugerencia,this);
-		for (Atraccion i : sugerencia.atraccionesIncluidas()) {
-			listaAtracciones.add(i);
-		}
+		this.itinerarioUsuario.agregarAdquirible(sugerencia, this);
+//		for (Atraccion i : sugerencia.atraccionesIncluidas()) {
+//			listaAtracciones.add(i);
+//		}
 		sugerencia.comprar();
-		
+
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();
 		usuarioDAO.updateUsuario(this);
 	}
@@ -76,7 +80,7 @@ public class Usuario {
 	public double getTiempoInicial() {
 		return TIEMPO_INICIAL;
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.NOMBRE + this.tiempoDisponible;

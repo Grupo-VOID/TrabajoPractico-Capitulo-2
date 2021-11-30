@@ -2,10 +2,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import jdbc.ConnectionProvider;
 import model.Adquirible;
+import model.Atraccion;
 import model.Itinerario;
 import model.Usuario;
 
@@ -42,6 +45,29 @@ public class ItinerarioDAOImpl implements ItinerarioDAO {
 			int rows = statement.executeUpdate();
 
 			return rows;
+		} catch (Exception e) {
+			throw new MissingDataException(e);
+		}
+	}
+
+	public List<Atraccion> atraccionesUsuario(int id) {
+		try {
+			String sql = "SELECT *\r\n" + "FROM itinerarios \r\n"
+					+ "LEFT JOIN atracciones_promociones ON itinerarios.id_promocion_comprada = atracciones_promociones.id_promocion\r\n"
+					+ "WHERE id_usuario = ?";
+			Connection conn = ConnectionProvider.getConnection();
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, id);
+			ResultSet resultados = statement.executeQuery();
+
+			AtraccionDAO atraccionesDAO = DAOFactory.getAtraccionesDAO();
+
+			List<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
+			while (resultados.next()) {
+				listaAtracciones.add(atraccionesDAO.buscarPorId(resultados.getInt("id_atraccion_comprada")));
+				listaAtracciones.add(atraccionesDAO.buscarPorId(resultados.getInt("id_atraccion")));
+			}
+			return listaAtracciones;
 		} catch (Exception e) {
 			throw new MissingDataException(e);
 		}
