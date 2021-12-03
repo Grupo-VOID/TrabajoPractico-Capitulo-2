@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 
 import dao.DAOFactory;
-import dao.ItinerarioDAO;
 import dao.UsuarioDAO;
 
 public class Usuario {
@@ -16,7 +15,7 @@ public class Usuario {
 	private final double TIEMPO_INICIAL;
 	private double tiempoDisponible;
 	protected Itinerario itinerarioUsuario;
-	//private ArrayList<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
+	private ArrayList<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
 
 	public Usuario(int id, String nombre, String tematica, double monedas, double tiempo) {
 		this.ID = id;
@@ -50,8 +49,19 @@ public class Usuario {
 	}
 
 	public ArrayList<Atraccion> getListaAtracciones() {
-		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
-		return (ArrayList<Atraccion>) itinerarioDAO.atraccionesUsuario(this.getID());
+		return listaAtracciones;
+	}
+
+	public void actualizarItinerario() {
+		for (Adquirible i : itinerarioUsuario.agregarAdquiriblesComprados(this)) {
+			if (i.esPromocion()) {
+				for (Atraccion atraccion : i.atraccionesIncluidas()) {
+					listaAtracciones.add((Atraccion) atraccion);
+				}
+			} else {
+				listaAtracciones.add((Atraccion) i);
+			}
+		}
 	}
 
 	public double monedasUtilizadas() {
@@ -62,9 +72,9 @@ public class Usuario {
 		this.monedasDisponibles -= sugerencia.getCosto();
 		this.tiempoDisponible -= sugerencia.getTiempo();
 		this.itinerarioUsuario.agregarAdquirible(sugerencia, this);
-//		for (Atraccion i : sugerencia.atraccionesIncluidas()) {
-//			listaAtracciones.add(i);
-//		}
+		for (Atraccion i : sugerencia.atraccionesIncluidas()) {
+			listaAtracciones.add(i);
+		}
 		sugerencia.comprar();
 
 		UsuarioDAO usuarioDAO = DAOFactory.getUsuarioDAO();

@@ -20,6 +20,11 @@ public class App {
 		parque.agregarUsuarios(usuarioDAO.findAll());
 		parque.agregarAtracciones(new LinkedList<Adquirible>(atraccionesDAO.findAll()));
 		parque.agregarPromociones(new LinkedList<Adquirible>(promocionesDAO.findAll()));
+		
+		for (Usuario usuarios : parque.getUsuarios()) {
+			usuarios.actualizarItinerario();
+			System.out.println(usuarios.getListaAtracciones());
+		}
 
 		parque.cargarCatalogo();
 
