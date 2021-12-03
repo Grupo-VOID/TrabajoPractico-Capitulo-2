@@ -16,7 +16,7 @@ public class Usuario {
 	private final double TIEMPO_INICIAL;
 	private double tiempoDisponible;
 	protected Itinerario itinerarioUsuario;
-	private ArrayList<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
+	//private ArrayList<Atraccion> listaAtracciones = new ArrayList<Atraccion>();
 
 	public Usuario(int id, String nombre, String tematica, double monedas, double tiempo) {
 		this.ID = id;
@@ -51,9 +51,7 @@ public class Usuario {
 
 	public ArrayList<Atraccion> getListaAtracciones() {
 		ItinerarioDAO itinerarioDAO = DAOFactory.getItinerarioDAO();
-		listaAtracciones = (ArrayList<Atraccion>) itinerarioDAO.atraccionesUsuario(this.getID());
-
-		return listaAtracciones;
+		return (ArrayList<Atraccion>) itinerarioDAO.atraccionesUsuario(this.getID());
 	}
 
 	public double monedasUtilizadas() {

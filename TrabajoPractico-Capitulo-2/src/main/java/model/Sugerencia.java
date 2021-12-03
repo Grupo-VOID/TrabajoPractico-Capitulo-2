@@ -35,11 +35,12 @@ public class Sugerencia implements Comparator<Adquirible> {
 				return true;
 			} else {
 				if (sugerencia.estaDisponible()) {
-					if (validarTiempoCosto(persona, sugerencia))
+					if (validarTiempoCosto(persona, sugerencia)) {
 						if (persona.getListaAtracciones().isEmpty())
 							return true;
 						else if (!persona.getListaAtracciones().contains(sugerencia))
 							return true;
+					}
 				}
 				return false;
 			}

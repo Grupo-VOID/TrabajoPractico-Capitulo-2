@@ -119,7 +119,7 @@ public abstract class UI {
 					case "X":
 						System.out.println(
 								"\nCompra finalizada\n**Itinerario del usuario " + persona.getNombre() + "**\n");
-						persona.itinerarioUsuario.mostrarItinerario();
+						persona.itinerarioUsuario.mostrarItinerario(persona);
 						System.out.println("\nPresione ENTER para continuar...");
 						sc.nextLine();
 						return;
@@ -131,7 +131,7 @@ public abstract class UI {
 			}
 		}
 		System.out.println("\nCompra finalizada\n**Itinerario del usuario " + persona.getNombre() + "**\n");
-		persona.itinerarioUsuario.mostrarItinerario();
+		persona.itinerarioUsuario.mostrarItinerario(persona);
 		System.out.println("\nPresione ENTER para continuar...");
 		sc.nextLine();
 	}
